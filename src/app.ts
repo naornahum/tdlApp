@@ -1,11 +1,23 @@
 const todos = JSON.parse(window.localStorage.getItem("todos")) || [];
 
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(index));
+  renderTodos();
+}
+
 function renderTodos() {
   document.querySelector("#tasks").innerHTML = "";
   for (let i = 0; i < todos.length; i++) {
-    const list = document.createElement("li");
-    list.appendChild(document.createTextNode(todos[i].value));
-    document.querySelector("#tasks").appendChild(list);
+    const listItem = document.createElement("li");
+    listItem.appendChild(document.createTextNode(todos[i].value));
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", () => {
+      deleteTodo(i);
+    });
+    listItem.appendChild(deleteButton);
+    document.querySelector("#tasks").appendChild(listItem);
   }
 }
 
