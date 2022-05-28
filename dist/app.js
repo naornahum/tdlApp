@@ -63,6 +63,7 @@ var app =
 	}
 	function renderTodos() {
 	    document.querySelector("#tasks").innerHTML = "";
+	    document.querySelector("#done-tasks").innerHTML = "";
 	    for (let i = 0; i < todos.length; i++) {
 	        const listItem = document.createElement("li");
 	        listItem.appendChild(document.createTextNode(todos[i].value));
@@ -85,7 +86,12 @@ var app =
 	        listItem.appendChild(isDone);
 	        listItem.appendChild(deleteButton);
 	        listItem.appendChild(editButton);
-	        document.querySelector("#tasks").appendChild(listItem);
+	        if (todos[i].isDone) {
+	            document.querySelector("#done-tasks").appendChild(listItem);
+	        }
+	        else {
+	            document.querySelector("#tasks").appendChild(listItem);
+	        }
 	    }
 	}
 	window.onload = function () {
