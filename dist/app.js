@@ -45,30 +45,28 @@ var app =
 /* 0 */
 /***/ (function(module, exports) {
 
+	const todos = JSON.parse(window.localStorage.getItem("todos")) || [];
+	function renderTodos() {
+	    document.querySelector("#tasks").innerHTML = "";
+	    for (let i = 0; i < todos.length; i++) {
+	        const list = document.createElement("li");
+	        list.appendChild(document.createTextNode(todos[i].value));
+	        document.querySelector("#tasks").appendChild(list);
+	    }
+	}
 	window.onload = function () {
+	    renderTodos();
 	    const addButton = document.getElementById("add-button");
 	    const addInput = document.getElementById("new-task");
-	    // const tasks: HTMLElement | null = document.getElementById("tasks");
 	    if (addButton) {
 	        addButton.addEventListener("click", (_) => {
 	            console.log(addInput.value);
-	            const id = Date.now();
-	            window.localStorage.setItem(id.toString(), addInput.value);
-	            // console.log(tasks);
-	            // const newTask = document.createElement("li");
-	            // const newTaskContent = document.createTextNode(addInput.value);
-	            // newTask.appendChild(newTaskContent);
-	            // tasks?.appendChild(newTask);
+	            window.localStorage.setItem("todos", JSON.stringify(todos));
+	            todos.push({ value: addInput.value });
+	            renderTodos();
 	        });
 	    }
 	};
-	function task() {
-	    const tasks = document.getElementById("tasks");
-	    const newTask = document.createElement("li");
-	    const newTaskContent = document.createTextNode("blabla");
-	    newTask.appendChild(newTaskContent);
-	    tasks.appendChild(newTask);
-	}
 
 
 /***/ })
